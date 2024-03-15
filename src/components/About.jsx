@@ -1,9 +1,28 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useInView } from "framer-motion";
+import { client } from "../client";
  
 const About = () => {
+  const [resume, setResume] = useState([])
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false }); 
+  const fetchParam = `*[_type == 'links']{
+    resume
+}`
+useEffect(()=> {
+  const fetchLinks = async ()=> {
+   try{
+     const response = await client.fetch(fetchParam)
+     console.log(response, 'contact')
+     if(response){
+     setResume(response)
+     }
+   }catch(error){
+       console.log(error)
+   }
+  }
+  fetchLinks()
+},[])
 
   return (
     <div className="container text-white " ref={ref}>
@@ -29,6 +48,9 @@ const About = () => {
       <h4 className="font-bold text-xl uppercase pt-4">
       I'm excited to continue my journey and create more magic!
       </h4>
+      <p className="font-bold text-xl uppercase pt-4 leading-8">Curious to learn more about my experience? You can find additional details on my
+      {<a href={resume[0]?.resume} className="border-[1px] px-4 py-1 m-2 rounded text-lg transition-all cursor-pointer duration-5000 hover:bg-white hover:text-black md:py-2">résumé.</a>}
+      </p>
     </div>
   );
 };
