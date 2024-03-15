@@ -15,6 +15,7 @@ export default {
         "max-w-xl": "1080px",
       },
       colors: {
+        primary: '#1a1a1a',
         black: '#000000',
         white: '#ffffff',
          grey: '#0A0909'

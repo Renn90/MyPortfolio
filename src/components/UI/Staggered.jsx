@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-const StaggeredText = ({ text }) => {
+const StaggeredText = ({ text, once }) => {
     const animate = {
         initial: {
           y: '100%',
@@ -12,7 +12,7 @@ const StaggeredText = ({ text }) => {
         }),
       };
       const ref = useRef(null);
-      const isInView = useInView(ref, { once: false });
+      const isInView = useInView(ref, { once: once });
   
   return (
     <span ref={ref} className='flex'>
