@@ -1,6 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { useInView } from "framer-motion";
 import { client } from "../client";
+import { ScrollContexts } from "../store/ScrollContext";
  
 const About = () => {
   const [resume, setResume] = useState([])
@@ -24,9 +25,11 @@ useEffect(()=> {
   fetchLinks()
 },[])
 
+const {aboutRef} = useContext(ScrollContexts)
+
   return (
-    <div className="container text-white " ref={ref}>
-      <p className="duration-850">About me</p>
+    <div className="container text-white py-[100px] pt-[50px]" ref={aboutRef}>
+      <p className="duration-850" ref={ref}>About me</p>
       <hr className={`my-4 ${isInView && "width-anim"}`} />
       <h2 className="font-bold text-xl uppercase">
         Hello there!, i'm Faithful (Renn), a frontend developer with passion for

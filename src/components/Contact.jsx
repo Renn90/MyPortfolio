@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import StaggeredText from "./UI/Staggered";
 import { FaGithub, FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { client } from "../client";
+import { ScrollContexts } from "../store/ScrollContext";
 
 const Contact = () => {
     const [contactLink, setContactLink] = useState([])
@@ -28,8 +29,10 @@ const Contact = () => {
 
     const textArray = 'Reach out to me!'.split("").map(char => char === ' ' ? '\u00A0' : char);
 
+    const {contactRef} = useContext(ScrollContexts)
+
   return (
-    <div className="container text-white flex flex-col items-center mt-[250px]">
+    <div className="container text-white flex flex-col items-center mt-[250px]" ref={contactRef}>
       <h1 className="uppercase font-bold text-4xl overflow-hidden text-center"><StaggeredText text={textArray} once={false}/></h1>
       <p className="text-center my-4 w-[90%] mx-auto md:w-[70%]">
       I'm open to taking on creative and engaging web development projects.

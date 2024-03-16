@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { client } from "../client";
 import StaggeredText from "./UI/Staggered";
 import imageUrlBuilder from "@sanity/image-url";
@@ -6,11 +6,13 @@ import { MdOutlineArrowOutward } from "react-icons/md";
 import { GoDash, GoPlus } from "react-icons/go";
 import live from "../assets/images/liveSite.png";
 import { FaGithub } from "react-icons/fa6";
+import { ScrollContexts } from "../store/ScrollContext";
 
 const Project = () => {
   const [project, setProject] = useState([]);
   const [showDetails, setShowDetails] = useState(null);
   const [hoverGit, setHoverGit] = useState(false)
+  const [hovered, sethovered] = useState(null)
 
 
   const projectQuery = `*[_type == "Projects"] {
@@ -57,11 +59,24 @@ const Project = () => {
     }
   };
 
+  const {projectRef} = useContext(ScrollContexts)
+
+  const startAnim = (id) => {
+    sethovered(id)
+    const circle = document.querySelector('.circle');
+    circle.style.animationPlayState = 'running';
+  };
+  
+  const stopAnim = () => {
+    const circle = document.querySelector('.circle');
+    circle.style.animationPlayState = 'paused';
+  };
+
   return (
     <>
       {project.length > 0 && (
-        <div className="text-white py-4 pt-[150px] container flex flex-col items-center">
-          <h1 className="text-4xl text-center uppercase overflow-hidden mb-[-10px] bebas-neue relative z-[999] md:mb-[-30px] sm:text-6xl md:text-8xl">
+        <div className="text-white py-4 container flex flex-col items-center" ref={projectRef}>
+          <h1 className="text-4xl text-center uppercase overflow-hidden mb-[-10px] bebas-neue relative z-[998] md:mb-[-30px] sm:text-6xl md:text-8xl">
             <StaggeredText text={"FEATURED-PROJECTS".split("")} once={true} />
           </h1>
           {project.map((proj) => (
@@ -76,7 +91,7 @@ const Project = () => {
                     showDetails === proj._id
                       ? "bg-primary text-white"
                       : "bg-white text-black"
-                  } absolute top-4 right-6 cursor-pointer flex justify-between items-center rounded-full py-2 px-5 transition-all duration-500 ease-in-out z-[999]`}
+                  } absolute top-4 right-6 cursor-pointer flex justify-between items-center rounded-full py-2 px-5 transition-all duration-500 ease-in-out z-[998]`}
                   onClick={() => handleDetail(proj._id)}
                 >
                   <h1 className="uppercase">Details</h1>
@@ -110,18 +125,21 @@ const Project = () => {
                   ))}
                 </span>
                 <div className="flex jus items-center absolute right-5 top-[-30%] md:relative">
-                <div className="bg-white p-3 rounded-full text-black mr-4 text-3xl cursor-pointer md:mr-8" onMouseLeave={() => setHoverGit(false)} onMouseEnter={() => setHoverGit(true)}>
+                <a href={proj.gitlink} className="bg-white p-3 rounded-full text-black mr-4 text-3xl cursor-pointer md:mr-8" onMouseLeave={() => setHoverGit(false)} onMouseEnter={() => setHoverGit(true)}>
               {hoverGit ?  <MdOutlineArrowOutward key='arrow' className="text-[grey]"/>  :  <FaGithub key='arrow'/> }
-                </div>
-                <div className="live rounded-full h-[120px] w-[120px] flex justify-center items-center cursor-pointer relative">
+                </a>
+                <a href={proj.livelink} className="live rounded-full h-[120px] w-[120px] flex justify-center items-center cursor-pointer relative">
                   <img
                     src={live}
-                    className="w-[80%] h-[80%] absolute circle z-[99] md:w-full md:h-full"
+                    key={proj._id}
+                    className={`w-[80%] h-[80%] absolute ${hovered === proj.id && 'circle'} z-[99] md:w-full md:h-full`}
+                    onMouseEnter={()=>startAnim(proj._id)}
+                    onMouseLeave={stopAnim}
                   />
-                  <div className="text-black text-2xl relative z-[999]">
+                  <div className="text-black text-2xl relative z-[998]">
                     <MdOutlineArrowOutward />
                   </div>
-                </div>
+                </a>
                 </div>
               </div>
             </div>
