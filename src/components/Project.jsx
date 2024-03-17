@@ -9,11 +9,25 @@ import { FaGithub } from "react-icons/fa6";
 import { ScrollContexts } from "../store/ScrollContext";
 
 const Project = () => {
-  const [project, setProject] = useState([]);
+  const [project, setProject] = useState([
+   { _id: 123443,
+     name: 'dummy Data',
+     Detail: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium blanditiis impedit dolores magnam necessitatibus alias quos! Saepe excepturi, libero ipsam impedit quisquam eligendi? Modi, dolorum! Cumque veniam expedita vitae laudantium quidem soluta similique eveniet quae esse ratione aspernatur, earum numquam dolor error! Tempore, eligendi vel. Enim eum iure non corrupti.',
+     stack: [{
+      name: 'html'
+     }]
+  },
+  { _id: 123443776,
+    name: 'dummy Data',
+    Detail: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium blanditiis impedit dolores magnam necessitatibus alias quos! Saepe excepturi, libero ipsam impedit quisquam eligendi? Modi, dolorum! Cumque veniam expedita vitae laudantium quidem soluta similique eveniet quae esse ratione aspernatur, earum numquam dolor error! Tempore, eligendi vel. Enim eum iure non corrupti.',
+    stack: [{
+     name: 'html'
+    }]
+ }
+  ]);
   const [showDetails, setShowDetails] = useState(null);
-  const [hoverGit, setHoverGit] = useState(false)
-  const [hovered, sethovered] = useState(null)
-
+  const [hoverGit, setHoverGit] = useState(false);
+  const [hovered, sethovered] = useState(null);
 
   const projectQuery = `*[_type == "Projects"] {
         _id,
@@ -59,33 +73,44 @@ const Project = () => {
     }
   };
 
-  const {projectRef} = useContext(ScrollContexts)
+  const { projectRef } = useContext(ScrollContexts);
 
   const startAnim = (id) => {
-    sethovered(id)
-    const circle = document.querySelector('.circle');
-    circle.style.animationPlayState = 'running';
+    sethovered(id);
+    if(hovered){
+      const circle = document.querySelector(".circle");
+      circle.style.animationPlayState = "running";
+    }
   };
-  
+
   const stopAnim = () => {
-    const circle = document.querySelector('.circle');
-    circle.style.animationPlayState = 'paused';
+    const circle = document.querySelector(".circle");
+    circle.style.animationPlayState = "paused";
   };
 
   return (
     <>
-      {project.length > 0 && (
-        <div className="text-white py-4 container flex flex-col items-center" ref={projectRef}>
+      {project.length < 1 ? (
+        <>
+          <div className=" left-0 top-[0] h-[400px] flex mb-[100px] justify-center items-center w-[100%] transparent z-[999]">
+            <span className="spinner-big"></span>
+          </div>
+        </>
+      ) : (
+        <div
+          className="text-white py-4 container flex flex-col items-center"
+          ref={projectRef}
+        >
           <h1 className="text-4xl text-center uppercase overflow-hidden mb-[-10px] bebas-neue relative z-[998] md:mb-[-30px] sm:text-6xl md:text-8xl">
             <StaggeredText text={"FEATURED-PROJECTS".split("")} once={true} />
           </h1>
           {project.map((proj) => (
             <div className="w-full mb-8" key={proj._id}>
               <div className="w-full h-[380px] overflow-hidden rounded-t-[20px] relative md:h-[480px]">
-                <img
+                {/*<img
                   src={urlFor(proj.image).url()}
                   className="rounded-t-[20px] h-full w-full object-cover hover:scale-105 transition-all duration-[2s] opacity-65"
-                />
+               /> */}
                 <div
                   className={`${
                     showDetails === proj._id
@@ -119,27 +144,48 @@ const Project = () => {
                     {proj.name}
                   </h1>
                   {proj.stack.map((stack, index) => (
-                    <span className="py-2 text-sm inter px-5 rounded-full text-white bg-[#282828] uppercase mr-2" key={index}>
+                    <span
+                      className="py-2 text-sm inter px-5 rounded-full text-white bg-[#282828] uppercase mr-2"
+                      key={index}
+                    >
                       {stack.name}
                     </span>
                   ))}
                 </span>
                 <div className="flex jus items-center absolute right-5 top-[-30%] md:relative">
-                <a href={proj.gitlink} className="bg-white p-3 rounded-full text-black mr-4 text-3xl cursor-pointer md:mr-8" onMouseLeave={() => setHoverGit(false)} onMouseEnter={() => setHoverGit(true)}>
-              {hoverGit ?  <MdOutlineArrowOutward key='arrow' className="text-[grey]"/>  :  <FaGithub key='arrow'/> }
-                </a>
-                <a href={proj.livelink} className="live rounded-full h-[120px] w-[120px] flex justify-center items-center cursor-pointer relative">
-                  <img
-                    src={live}
-                    key={proj._id}
-                    className={`w-[80%] h-[80%] absolute ${hovered === proj.id && 'circle'} z-[99] md:w-full md:h-full`}
-                    onMouseEnter={()=>startAnim(proj._id)}
+                  <a
+                    href={proj.gitlink}
+                    className="bg-white p-3 rounded-full text-black mr-4 text-3xl cursor-pointer md:mr-8"
+                    onMouseLeave={() => setHoverGit(false)}
+                    onMouseEnter={() => setHoverGit(true)}
+                  >
+                    {hoverGit ? (
+                      <MdOutlineArrowOutward
+                        key="arrow"
+                        className="text-[grey]"
+                      />
+                    ) : (
+                      <FaGithub key="arrow" />
+                    )}
+                  </a>
+                  <a
+                    href={proj.livelink}
+                    onMouseEnter={() => startAnim(proj._id)}
                     onMouseLeave={stopAnim}
-                  />
-                  <div className="text-black text-2xl relative z-[998]">
-                    <MdOutlineArrowOutward />
-                  </div>
-                </a>
+                    className="live rounded-full h-[120px] w-[120px] flex justify-center items-center cursor-pointer relative"
+                  >
+                    <img
+                      src={live}
+                      key={proj._id}
+                      className={`w-[80%] h-[80%] absolute circleSmall ${
+                        hovered === proj._id && "circle"
+                      } z-[99] md:w-full md:h-full`}
+                     
+                    />
+                    <div className="text-black text-2xl relative z-[998]">
+                      <MdOutlineArrowOutward />
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>
