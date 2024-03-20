@@ -90,10 +90,10 @@ const Project = () => {
           {project.map((proj) => (
             <div className="w-full mb-8" key={proj._id}>
               <div className="w-full h-[380px] overflow-hidden rounded-t-[20px] relative md:h-[480px]">
-                {/*<img
+                <img
                   src={urlFor(proj.image).url()}
                   className="rounded-t-[20px] h-full w-full object-cover hover:scale-105 transition-all duration-[2s] opacity-65"
-               /> */}
+               />
                 <div
                   className={`${
                     showDetails === proj._id
