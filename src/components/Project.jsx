@@ -9,22 +9,7 @@ import { FaGithub } from "react-icons/fa6";
 import { ScrollContexts } from "../store/ScrollContext";
 
 const Project = () => {
-  const [project, setProject] = useState([
-   { _id: 123443,
-     name: 'dummy Data',
-     Detail: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium blanditiis impedit dolores magnam necessitatibus alias quos! Saepe excepturi, libero ipsam impedit quisquam eligendi? Modi, dolorum! Cumque veniam expedita vitae laudantium quidem soluta similique eveniet quae esse ratione aspernatur, earum numquam dolor error! Tempore, eligendi vel. Enim eum iure non corrupti.',
-     stack: [{
-      name: 'html'
-     }]
-  },
-  { _id: 123443776,
-    name: 'dummy Data',
-    Detail: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium blanditiis impedit dolores magnam necessitatibus alias quos! Saepe excepturi, libero ipsam impedit quisquam eligendi? Modi, dolorum! Cumque veniam expedita vitae laudantium quidem soluta similique eveniet quae esse ratione aspernatur, earum numquam dolor error! Tempore, eligendi vel. Enim eum iure non corrupti.',
-    stack: [{
-     name: 'html'
-    }]
- }
-  ]);
+  const [project, setProject] = useState([]);
   const [showDetails, setShowDetails] = useState(null);
   const [hoverGit, setHoverGit] = useState(false);
   const [hovered, sethovered] = useState(null);
