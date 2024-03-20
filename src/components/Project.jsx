@@ -77,9 +77,11 @@ const Project = () => {
 
   const startAnim = (id) => {
     sethovered(id);
+    console.log('hovered')
     if(hovered){
       const circle = document.querySelector(".circle");
       circle.style.animationPlayState = "running";
+      console.log('running')
     }
   };
 
