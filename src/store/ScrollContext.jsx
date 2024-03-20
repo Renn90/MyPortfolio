@@ -11,7 +11,7 @@ const ScrollContext = ({children}) => {
     const scrollFnc =(ref)=> {
         if(ref && ref.current){
             window.scrollTo({
-                top:ref.current.offsetTop,
+                top:ref.current.offsetTop - 50,
                 behavior: 'smooth'
             })
         }
