@@ -16,7 +16,6 @@ const Contact = () => {
        const fetchLinks = async ()=> {
         try{
           const response = await client.fetch(fetchParam)
-          console.log(response, 'contact')
           if(response){
             setContactLink(response)
           }

@@ -30,7 +30,6 @@ const Project = () => {
     const fetchProject = async () => {
       try {
         const response = await client.fetch(projectQuery);
-        console.log(response);
         if (response) {
           setProject(response);
         } else {
@@ -50,7 +49,6 @@ const Project = () => {
   }
 
   const handleDetail = (id) => {
-    console.log(id);
     if (showDetails === id) {
       setShowDetails(null);
     } else {
@@ -62,11 +60,9 @@ const Project = () => {
 
   const startAnim = (id) => {
     sethovered(id);
-    console.log('hovered')
     if(hovered){
       const circle = document.querySelector(".circle");
       circle.style.animationPlayState = "running";
-      console.log('running')
     }
   };
 

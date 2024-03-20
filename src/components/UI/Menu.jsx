@@ -17,7 +17,6 @@ const Menu = ({ open, setOpen }) => {
        const fetchLinks = async ()=> {
         try{
           const response = await client.fetch(fetchParam)
-          console.log(response)
           if(response){
             setContactLink(response)
           }
