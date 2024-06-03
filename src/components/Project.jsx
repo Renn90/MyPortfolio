@@ -14,7 +14,7 @@ const Project = () => {
   const [hoverGit, setHoverGit] = useState(false);
   const [hovered, sethovered] = useState(null);
 
-  const projectQuery = `*[_type == "Projects"] {
+  const projectQuery = `*[_type == "Projects"] | order(_updatedAt desc) {
         _id,
         name,
         Detail,
@@ -126,17 +126,19 @@ const Project = () => {
                   >
                     {proj.name}
                   </h1>
+                  <div className="flex flex-wrap items-center">
                   {proj.stack.map((stack, index) => (
-                    <span
-                      className="py-2 text-sm inter px-5 rounded-full text-white bg-[#282828] uppercase mr-2"
+                    <div
+                      className="py-2 my-1 text-sm inter px-5 rounded-full text-white bg-[#282828] uppercase md:my-0 md:mr-2"
                       key={index}
                     >
                       {stack.name}
-                    </span>
+                    </div>
                   ))}
+                  </div>
                 </span>
                 <div className="flex jus items-center absolute right-5 top-[-30%] md:relative">
-                  <a
+                 {proj.gitlink && <a
                     href={proj.gitlink}
                     className="bg-white p-3 rounded-full text-black mr-4 text-3xl cursor-pointer md:mr-8"
                     onMouseLeave={() => setHoverGit(false)}
@@ -150,7 +152,7 @@ const Project = () => {
                     ) : (
                       <FaGithub key="arrow" />
                     )}
-                  </a>
+                  </a>}
                   <a
                     href={proj.livelink}
                     onMouseEnter={() => startAnim(proj._id)}
