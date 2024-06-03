@@ -42,8 +42,8 @@ const {aboutRef} = useContext(ScrollContexts)
         Some of the few technologies i've worked with and still use include:
       </h4>
       <div className="font-bold text-xl uppercase tracking-wider">
-        <h2 className="py-1"><span className="tracking-tighter">Languages:</span> HTML, CSS, JavaScript (ES6+), Typescript</h2>
-        <h2 className="py-1"><span className="tracking-tighter">Frameworks:</span> React.js/Next.js, Sanity.io, Framer motion, Gsap</h2>
+        <h2 className="py-1"><span className="tracking-tighter">Languages:</span> HTML, CSS, JavaScript (ES6+)</h2>
+        <h2 className="py-1"><span className="tracking-tighter">Frameworks:</span> React.js, Sanity.io, Framer motion, Gsap</h2>
         <h2 className="py-1"><span className="tracking-tighter">State Management:</span> Redux, Context API </h2>
         <h2 className="py-1"><span className="tracking-tighter">Version Control:</span> Git/GitHub</h2>
       </div>
@@ -58,3 +58,10 @@ const {aboutRef} = useContext(ScrollContexts)
 };
 
 export default About;
+
+{/* <div className="font-bold text-xl uppercase tracking-wider">
+<h2 className="py-1"><span className="tracking-tighter">Languages:</span> HTML, CSS, JavaScript (ES6+), Typescript</h2>
+<h2 className="py-1"><span className="tracking-tighter">Frameworks:</span> React.js/Next.js, Sanity.io, Framer motion, Gsap</h2>
+<h2 className="py-1"><span className="tracking-tighter">State Management:</span> Redux, Context API </h2>
+<h2 className="py-1"><span className="tracking-tighter">Version Control:</span> Git/GitHub</h2>
+</div> */}
